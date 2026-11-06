@@ -1,0 +1,15 @@
+# Ejecutables compilados
+*.exe
+*.exe~
+*.dll
+
+# Archivos temporales
+*.tmp
+*.log
+
+# Archivos del editor
+.vscode/
+.idea/
+
+# Datos locales generados
+data/*.json
