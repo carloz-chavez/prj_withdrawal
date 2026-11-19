@@ -1,4 +1,3 @@
-
 /*
 source file: class.go
 Cuenta: Representa la entidad de negocio descrita en el Feature Gherkin.
@@ -9,32 +8,32 @@ Author: J.Medianero.A (adaptado a Go)
 package headers
 
 import (
-    "errors"
-    "fmt"
+	"errors"
+	"fmt"
 )
 
 // Cuenta representa la entidad de negocio descrita en el Feature Gherkin.
 type Cuenta struct {
-    saldo  float64
-    nombre string
+	saldo  float64
+	nombre string
 }
 
 // NewCuenta es el constructor equivalente a Cuenta(nombre, saldoInicial).
 func NewCuenta(nombre string, saldoInicial float64) *Cuenta {
-    return &Cuenta{
-        nombre: nombre,
-        saldo:  saldoInicial,
-    }
+	return &Cuenta{
+		nombre: nombre,
+		saldo:  saldoInicial,
+	}
 }
 
 // ObtenerSaldo devuelve el saldo actual.
 func (c *Cuenta) ObtenerSaldo() float64 {
-    return c.saldo
+	return c.saldo
 }
 
 // Nombre devuelve el nombre del titular (útil para logs).
 func (c *Cuenta) Nombre() string {
-    return c.nombre
+	return c.nombre
 }
 
 /*
@@ -42,19 +41,32 @@ Retirar intenta retirar una cantidad.
 Regla: No se puede retirar más de lo que hay en la cuenta.
 */
 func (c *Cuenta) Retirar(cantidad float64) (bool, error) {
-    if cantidad < 0 {
-        return false, errors.New("no se pueden retirar cantidades negativas")
-    }
+	if cantidad < 0 {
+		return false, errors.New("no se pueden retirar cantidades negativas")
+	}
 
-    if cantidad > c.saldo {
-        return false, nil // Escenario: Withdrawal declined
-    }
+	if cantidad > c.saldo {
+		return false, nil // Escenario: Withdrawal declined
+	}
 
-    c.saldo -= cantidad
-    return true, nil // Escenario: Successful withdrawal
+	c.saldo -= cantidad
+	return true, nil // Escenario: Successful withdrawal
 }
 
 // String implementa fmt.Stringer para depuración.
 func (c *Cuenta) String() string {
-    return fmt.Sprintf("Cuenta(%s, saldo=%.2f)", c.nombre, c.saldo)
+	return fmt.Sprintf("Cuenta(%s, saldo=%.2f)", c.nombre, c.saldo)
+}
+
+/*
+Abonar permite depositar dinero en una cuenta.
+Regla: El monto debe ser mayor que cero.
+*/
+func (c *Cuenta) Abonar(cantidad float64) error {
+	if cantidad <= 0 {
+		return errors.New("el monto del abono debe ser mayor que cero")
+	}
+
+	c.saldo += cantidad
+	return nil
 }

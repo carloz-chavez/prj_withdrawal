@@ -79,3 +79,23 @@ Una transacción se completa por entero o no se hace. Todo intento deja rastro e
 - **RN-01:** No se permite realizar un retiro si el monto solicitado es mayor al saldo disponible.
 - **RN-02:** No se permiten saldos negativos por retiros de efectivo (sin sobregiro autorizado).
 - **RN-03:** Las transacciones deben ser atómicas (o se completa todo o no se hace nada).
+
+
+---
+
+## US-01b: Abono en efectivo
+
+**Historia de Usuario:**
+
+As a: cliente autenticado
+
+I want: abonar efectivo a mi cuenta bancaria
+
+so that: incrementar mi saldo disponible
+
+### Criterios de aceptación
+
+1. Dado que el cliente tiene una cuenta activa, cuando abona un monto válido mayor que cero, entonces el sistema incrementa el saldo.
+2. Si el monto ingresado es negativo o cero, el sistema rechaza el abono.
+3. Si el abono es exitoso, el sistema muestra el nuevo saldo disponible.
+4. Si el abono es rechazado, el saldo permanece sin cambios.
